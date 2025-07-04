@@ -1,0 +1,105 @@
+/* Order.css */
+
+.order-list {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f7fa;
+    min-height: 100vh;
+  }
+  
+  .order-list h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #2f80ed;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+  
+  thead {
+    background-color: #2f80ed;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  
+  th, td {
+    padding: 18px 22px;
+    text-align: left;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  tbody tr:hover {
+    background-color: #f5faff;
+    transition: background 0.3s ease;
+  }
+  
+  td {
+    color: #444;
+  }
+  
+  .status-select {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.25s ease;
+  }
+  
+  .status-select:hover,
+  .status-select:focus {
+    background-color: #e6f0ff;
+    border-color: #2f80ed;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .order-list {
+      padding: 20px 10px;
+    }
+  
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+  
+    thead {
+      display: none;
+    }
+  
+    tr {
+      margin-bottom: 20px;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+  
+    td {
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      border: none;
+      border-bottom: 1px solid #eee;
+    }
+  
+    td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: #333;
+    }
+  }
+  

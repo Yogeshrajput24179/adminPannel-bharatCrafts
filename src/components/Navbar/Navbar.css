@@ -1,0 +1,14 @@
+.navbar .logo {
+    width: max(10%,80px)
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 4%;
+}
+
+.navbar .profle_image{
+    width: 40px;
+}
