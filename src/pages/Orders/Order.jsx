@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./Order.css";
 import { toast } from "react-toastify";
 import axios from "axios";
+const url = "https://adminpannel-bharatcrafts.onrender.com";
 
-const Order = ({ url }) => {
+const Order = () => {
   const [orders, setOrders] = useState([]);
 
   const fetchAllOrders = async () => {
