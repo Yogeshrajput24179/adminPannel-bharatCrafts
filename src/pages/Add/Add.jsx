@@ -3,8 +3,8 @@ import "./Add.css";
 import { assets } from "../../assets/admin_assets/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-const Add = ({ url }) => {
+const url = "https://adminpannel-bharatcrafts.onrender.com";
+const Add = () => {
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [data, setData] = useState({
