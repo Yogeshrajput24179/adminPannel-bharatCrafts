@@ -1,12 +1,10 @@
-import React from 'react'
-import './Order.css'
-import { toast } from 'react-toastify'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import "./Order.css";
+import { toast } from "react-toastify";
+import axios from "axios";
 
-const Order = () => {
+const Order = ({ url }) => {
   const [orders, setOrders] = useState([]);
-  const url = "http://localhost:8282";
 
   const fetchAllOrders = async () => {
     try {
@@ -81,7 +79,7 @@ const Order = () => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
 export default Order;
