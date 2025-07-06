@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./List.css";
 import { toast } from "react-toastify";
 import axios from "axios";
-
-const List = ({ url }) => {
+const url = "https://adminpannel-bharatcrafts.onrender.com";
+const List = () => {
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
