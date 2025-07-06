@@ -32,7 +32,7 @@ app.use(express.json());
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
-  "https://fuullstack-website-bharatcrafts.onrender.com",
+  "https://adminpannel-bharatcrafts.onrender.com",
   "https://yogeshrajput24179.github.io"  // <-- ADD THIS
 ];
 
