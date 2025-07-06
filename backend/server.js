@@ -10,6 +10,7 @@ import userRouter from "./routes/userRoutes.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import authMiddleware from "./middleware/auth.js";
+import ProductModel from "./models/ProductModel.js"; // ✅ Fix: Import model directly
 
 dotenv.config();
 
@@ -57,7 +58,7 @@ connectDB()
     process.exit(1);
   });
 
-// Serve static files (for images/uploads)
+// Serve static files (uploads/images)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
@@ -66,15 +67,16 @@ app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
-// Example: Fetch product list with full image URL
+// ✅ FIXED: Product list API with image URL
 app.get("/api/products/list", async (req, res) => {
   try {
-    const products = await productRouter.productModel.find().lean();
+    const products = await ProductModel.find().lean();
     const updatedProducts = products.map((product) => ({
       id: product._id.toString(),
       name: product.name,
       price: product.price,
       description: product.description,
+      category: product.category,
       image: product.image ? `${baseURL}/uploads/${product.image}` : null,
     }));
 
