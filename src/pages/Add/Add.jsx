@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const Add = ({ url }) => {
   const [image, setImage] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null); // ✅ Fix: Store preview separately
+  const [previewImage, setPreviewImage] = useState(null);
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -23,9 +23,18 @@ const Add = ({ url }) => {
     const file = event.target.files[0];
     if (file) {
       setImage(file);
-      setPreviewImage(URL.createObjectURL(file)); // ✅ Fix: Prevent memory leaks
+      setPreviewImage(URL.createObjectURL(file));
     }
   };
+
+  useEffect(() => {
+    // Cleanup preview image URL on unmount or image change
+    return () => {
+      if (previewImage) {
+        URL.revokeObjectURL(previewImage);
+      }
+    };
+  }, [previewImage]);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -55,8 +64,7 @@ const Add = ({ url }) => {
           category: "Painting",
         });
         setImage(null);
-        setPreviewImage(null); // ✅ Fix: Reset preview image
-
+        setPreviewImage(null);
         toast.success("Product added successfully!");
       } else {
         toast.error("Failed to add product. Try again!");
@@ -74,14 +82,10 @@ const Add = ({ url }) => {
   return (
     <div className="add">
       <form className="flex-col" onSubmit={onSubmitHandler}>
-        {/* Image Upload Section */}
         <div className="add-img-upload flex col">
           <p>Upload Image</p>
           <label htmlFor="image">
-            <img
-              src={previewImage || assets.upload_area}
-              alt="Product Preview"
-            />
+            <img src={previewImage || assets.upload_area} alt="Product Preview" />
           </label>
           <input
             onChange={onImageChange}
@@ -93,7 +97,6 @@ const Add = ({ url }) => {
           />
         </div>
 
-        {/* Product Name */}
         <div className="add-product-name flex-col">
           <p>Product Name</p>
           <input
@@ -106,7 +109,6 @@ const Add = ({ url }) => {
           />
         </div>
 
-        {/* Product Description */}
         <div className="add-product-description flex-col">
           <p>Product Description</p>
           <textarea
@@ -119,7 +121,6 @@ const Add = ({ url }) => {
           />
         </div>
 
-        {/* Category & Price Section */}
         <div className="add-category-price">
           <div className="add-category flex-col">
             <p>Product Category</p>
@@ -140,12 +141,12 @@ const Add = ({ url }) => {
               type="number"
               name="price"
               placeholder="$20"
+              min="0"
               required
             />
           </div>
         </div>
 
-        {/* Submit Button */}
         <button type="submit" className="add-btn">
           ADD
         </button>
