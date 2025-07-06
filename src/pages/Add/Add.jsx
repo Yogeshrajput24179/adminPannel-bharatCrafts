@@ -3,7 +3,9 @@ import "./Add.css";
 import { assets } from "../../assets/admin_assets/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
+
 const url = "https://adminpannel-bharatcrafts.onrender.com";
+
 const Add = () => {
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -14,13 +16,13 @@ const Add = () => {
     category: "Painting",
   });
 
-  const onChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setData((prevData) => ({ ...prevData, [name]: value }));
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onImageChange = (event) => {
-    const file = event.target.files[0];
+  const onImageChange = (e) => {
+    const file = e.target.files[0];
     if (file) {
       setImage(file);
       setPreviewImage(URL.createObjectURL(file));
@@ -28,19 +30,18 @@ const Add = () => {
   };
 
   useEffect(() => {
-    // Cleanup preview image URL on unmount or image change
     return () => {
       if (previewImage) {
-        URL.revokeObjectURL(previewImage);
+        URL.revokeObjectURL(previewImage); // prevent memory leaks
       }
     };
   }, [previewImage]);
 
-  const onSubmitHandler = async (event) => {
-    event.preventDefault();
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
 
     if (!image) {
-      toast.error("Please upload an image!");
+      toast.error("📸 Please upload an image!");
       return;
     }
 
@@ -52,11 +53,12 @@ const Add = () => {
       formData.append("category", data.category);
       formData.append("image", image);
 
-      const response = await axios.post(`${url}/api/products/add`, formData, {
+      const res = await axios.post(`${url}/api/products/add`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      if (response.data.success) {
+      if (res.data.success) {
+        toast.success("✅ Product added successfully!");
         setData({
           name: "",
           description: "",
@@ -65,27 +67,23 @@ const Add = () => {
         });
         setImage(null);
         setPreviewImage(null);
-        toast.success("Product added successfully!");
       } else {
-        toast.error("Failed to add product. Try again!");
+        toast.error("❌ Failed to add product");
       }
-    } catch (error) {
-      console.error("❌ Error adding product:", error);
+    } catch (err) {
+      console.error("❌ Error adding product:", err);
       toast.error("Something went wrong!");
     }
   };
 
-  useEffect(() => {
-    console.log("Updated Data:", data);
-  }, [data]);
-
   return (
     <div className="add">
       <form className="flex-col" onSubmit={onSubmitHandler}>
+        {/* Image Upload */}
         <div className="add-img-upload flex col">
           <p>Upload Image</p>
           <label htmlFor="image">
-            <img src={previewImage || assets.upload_area} alt="Product Preview" />
+            <img src={previewImage || assets.upload_area} alt="Preview" />
           </label>
           <input
             onChange={onImageChange}
@@ -97,6 +95,7 @@ const Add = () => {
           />
         </div>
 
+        {/* Product Name */}
         <div className="add-product-name flex-col">
           <p>Product Name</p>
           <input
@@ -109,6 +108,7 @@ const Add = () => {
           />
         </div>
 
+        {/* Description */}
         <div className="add-product-description flex-col">
           <p>Product Description</p>
           <textarea
@@ -121,10 +121,16 @@ const Add = () => {
           />
         </div>
 
+        {/* Category and Price */}
         <div className="add-category-price">
           <div className="add-category flex-col">
             <p>Product Category</p>
-            <select onChange={onChangeHandler} name="category" value={data.category}>
+            <select
+              name="category"
+              value={data.category}
+              onChange={onChangeHandler}
+              required
+            >
               <option value="Painting">Painting</option>
               <option value="Furniture">Furniture</option>
               <option value="Jewellery">Jewellery</option>
@@ -140,13 +146,14 @@ const Add = () => {
               value={data.price}
               type="number"
               name="price"
-              placeholder="$20"
               min="0"
+              placeholder="₹20"
               required
             />
           </div>
         </div>
 
+        {/* Submit */}
         <button type="submit" className="add-btn">
           ADD
         </button>
