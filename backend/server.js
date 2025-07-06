@@ -10,7 +10,7 @@ import userRouter from "./routes/userRoutes.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import authMiddleware from "./middleware/auth.js";
-import ProductModel from "./models/ProductModel.js"; // ✅ Fix: Import model directly
+import ProductModel from "./models/productModel.js"; // ✅ Fix: Import model directly
 
 dotenv.config();
 
