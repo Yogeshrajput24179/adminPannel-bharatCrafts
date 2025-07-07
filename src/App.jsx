@@ -12,7 +12,7 @@ const App = () => {
   const url = "https://adminpannel-bharatcrafts.onrender.com";
 
   return (
-    <BrowserRouter basename="/adminPannel-bharatCrafts">
+  
       <div>
         <ToastContainer />
         <Navbar />
@@ -27,7 +27,7 @@ const App = () => {
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
+
   );
 };
 
