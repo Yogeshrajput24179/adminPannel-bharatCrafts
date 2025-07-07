@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.env.PORT || 8282;
+const port = process.env.BASE_URL || 8282;
 
 // Use BASE_URL for image URLs, fallback to localhost
 const baseURL = process.env.BASE_URL || `http://localhost:${port}`;
