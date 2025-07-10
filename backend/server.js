@@ -21,10 +21,10 @@ const __dirname = path.dirname(__filename);
 
 // App config
 const app = express();
-
+const port = process.env.PORT || 8282;
 
 // Use the BASE_URL env variable, fallback to localhost
-const baseURL = process.env.BASE_URL ;
+const baseURL = process.env.BASE_URL || `http://localhost:${port}`;
 
 app.use(express.json());
 
@@ -107,6 +107,6 @@ app.get("/api/cart", authMiddleware, async (req, res) => {
 // ... your existing order API code here ...
 
 // Start Server After MongoDB Connects
-app.listen(baseURL, () => {
+app.listen(port, () => {
   console.log(`🚀 Server started on ${baseURL}`);
 });
